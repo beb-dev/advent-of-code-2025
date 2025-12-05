@@ -7,8 +7,8 @@ namespace AdventOfCode2025.Days
 	{
 		public override string Part1(string[] input)
 		{
+			// Get the sums of invalid ids
 			long sums = 0;
-
 			List<long> productIds = ParseProductIds(input);
 			int length = productIds.Count;
 
@@ -27,8 +27,8 @@ namespace AdventOfCode2025.Days
 
 		public override string Part2(string[] input)
 		{
+			// Get the sums of invalid ids
 			long sums = 0;
-
 			List<long> productIds = ParseProductIds(input);
 			int length = productIds.Count;
 
@@ -47,64 +47,75 @@ namespace AdventOfCode2025.Days
 
 		public static bool ValidateIdPart1(long id)
 		{
-			string s = id.ToString();
-			int length = s.Length;
+			Span<char> charBuffer = stackalloc char[19];
 
+			id.TryFormat(charBuffer, out int length);
+
+			// Id is valid when length is odd
 			if (length == 0 || length % 2 != 0)
 			{
 				return true;
 			}
 
+			// Compare both halves to see if there is a match
 			int halfLength = length /= 2;
 
 			for (int i = 0; i < halfLength; i++)
 			{
-				if (s[i] != s[i + halfLength])
+				if (charBuffer[i] != charBuffer[i + halfLength])
 				{
+					// Both halves are different, id is valid
 					return true;
 				}
 			}
 
+			// Both halves are the same, id is invalid
 			return false;
 		}
 
 		public static bool ValidateIdPart2(long id)
 		{
-			string s = id.ToString();
+			Span<char> charBuffer = stackalloc char[19];
 
-			if (s.Length <= 1)
+            id.TryFormat(charBuffer, out int length);
+
+			if (length <= 1)
 			{
 				return true;
 			}
 
 			int size = 1;
+			int maxSize = (length / 2);
 
-			while (size < s.Length)
+			// Look for a pattern that repeats
+			// Starts with s size of 1, then grow size  
+			// until pattern is too big to repeat.
+			while (size <= maxSize)
 			{
-				// Size must fit in length
-				if (s.Length % size != 0)
+				// Ignore sizes that can't repeat for a given length
+				if (length % size != 0)
 				{
 					size++;
 					continue;
 				}
 
-				int index = 0;
-				int match = 0;
-				int matchRequired = s.Length / size;
-				
-				var source = s.AsSpan();
-				var search = s.AsSpan(0, size);
+				// Search pattern
+				ReadOnlySpan<char> source = charBuffer.Slice(0, length);
+				ReadOnlySpan<char> pattern = charBuffer.Slice(0, size);
+				int index;
 
-				while ((index = source.IndexOf(search)) != -1)
+				while ((index = source.IndexOf(pattern)) != -1)
 				{
-					int nextIndex = index + size;
-					source = source.Slice(nextIndex);
-					match++;
-				}
+					// Stop if pattern is not continuous
+					if (index != 0) break;
 
-				if (match == matchRequired)
-				{
-					return false;
+					// Id is invalid when all matches are found
+					if (source.Length == pattern.Length)
+					{
+						return false;
+					}
+
+					source = source.Slice(index + size);
 				}
 
 				size++;
@@ -123,7 +134,7 @@ namespace AdventOfCode2025.Days
 
 				for (int j = 0; j < ranges.Length; j++)
 				{
-					// TODO: Recopy test input and check if this works.
+					// For test input since it is on several lines ending with ","
 					if (ranges[j].Length == 0)
 					{
 						continue;
@@ -131,8 +142,6 @@ namespace AdventOfCode2025.Days
 
 					string[] range = ranges[j].Split('-');
 
-					// TODO: Use TryParse?
-					// TODO: check if range has length of 2
 					long start = long.Parse(range[0].AsSpan());
 					long end = long.Parse(range[1].AsSpan());
 

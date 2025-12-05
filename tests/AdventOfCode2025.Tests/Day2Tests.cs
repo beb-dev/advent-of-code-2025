@@ -31,17 +31,17 @@ namespace AdventOfCode2025.Tests
 		[Fact]
 		public void Validate_ids_part2()
 		{
-			//Assert.True(Day2.ValidateIdPart2(0));
-			//Assert.True(Day2.ValidateIdPart2(1));
-			//Assert.True(Day2.ValidateIdPart2(12));
-			//Assert.True(Day2.ValidateIdPart2(123));
-			//Assert.True(Day2.ValidateIdPart2(1234));
-			//Assert.True(Day2.ValidateIdPart2(12345));
+			Assert.True(Day2.ValidateIdPart2(0));
+			Assert.True(Day2.ValidateIdPart2(1));
+			Assert.True(Day2.ValidateIdPart2(12));
+			Assert.True(Day2.ValidateIdPart2(123));
+			Assert.True(Day2.ValidateIdPart2(1234));
+			Assert.True(Day2.ValidateIdPart2(12345));
 
-			//Assert.True(Day2.ValidateIdPart2(101));
-			//Assert.True(Day2.ValidateIdPart2(1213));
-			//Assert.True(Day2.ValidateIdPart2(123122));
-			//Assert.True(Day2.ValidateIdPart2(123321));
+			Assert.True(Day2.ValidateIdPart2(101));
+			Assert.True(Day2.ValidateIdPart2(1213));
+			Assert.True(Day2.ValidateIdPart2(123122));
+			Assert.True(Day2.ValidateIdPart2(123321));
 
 			Assert.False(Day2.ValidateIdPart2(11));
 			Assert.False(Day2.ValidateIdPart2(22));
