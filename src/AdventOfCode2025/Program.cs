@@ -12,11 +12,12 @@ namespace AdventOfCode2025
 			new Day1(),
 			new Day2(),
 			new Day3(),
+			new Day4()
 		};
 
 		public static void Main()
 		{
-			int dayNumber = 3;
+			int dayNumber = 4;
 
 			string[] input = DataParser.GetLinesByDay(dayNumber, false);
 			string[] inputTest = DataParser.GetLinesByDay(dayNumber, true);
