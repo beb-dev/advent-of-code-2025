@@ -10,12 +10,13 @@ namespace AdventOfCode2025
 		private static readonly List<Day> m_days = new List<Day>()
 		{
 			new Day1(),
-			new Day2()
+			new Day2(),
+			new Day3(),
 		};
 
 		public static void Main()
 		{
-			int dayNumber = 2;
+			int dayNumber = 3;
 
 			string[] input = DataParser.GetLinesByDay(dayNumber, false);
 			string[] inputTest = DataParser.GetLinesByDay(dayNumber, true);
