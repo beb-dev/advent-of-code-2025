@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using AdventOfCode2025.Days;
 
 namespace AdventOfCode2025
@@ -14,33 +13,24 @@ namespace AdventOfCode2025
 			new Day3(),
 			new Day4(),
 			new Day5(),
-			new Day6()
+			new Day6(),
+			new Day7(),
+			new Day8(),
 		};
 
 		public static void Main()
 		{
-			int dayNumber = 6;
+			int dayNum = 8;
+			Day day = GetDay(dayNum);
 
-			string[] input = DataParser.GetLinesByDay(dayNumber, false);
-			string[] inputTest = DataParser.GetLinesByDay(dayNumber, true);
+			string[] input = DataParser.GetLinesByDay(dayNum, false);
+			string[] testInput = DataParser.GetLinesByDay(dayNum, true);
 
-			var output = new StringBuilder(128);
-
-			Day day = GetDay(dayNumber);
-
-			string part1 = day.Part1(input);
-			string part2 = day.Part2(input);
-			output.AppendLine($"Part 1: {part1}");
-			output.AppendLine($"Part 2: {part2}");
-			output.AppendLine("");
-
-			string part1Test = day.Part1(inputTest);
-			string part2Test = day.Part2(inputTest);
-
-			output.AppendLine($"Part 1: {part1Test} (Test Input)");
-			output.AppendLine($"Part 2: {part2Test} (Test Input)");
-
-			Console.WriteLine(output);
+			Console.WriteLine($"Day {dayNum} Part 1 (Test Input): {day.Part1(testInput)}");
+			Console.WriteLine($"Day {dayNum} Part 2 (Test Input): {day.Part2(testInput)}");
+			Console.WriteLine();
+			Console.WriteLine($"Day {dayNum} Part 1: {day.Part1(input)}");
+			Console.WriteLine($"Day {dayNum} Part 2: {day.Part2(input)}");
 		}
 
 		private static Day GetDay(int day)
